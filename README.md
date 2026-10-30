@@ -1,114 +1,100 @@
-# Hostel Discovery & Travel Community Platform
+# Qing Traveler — Hostel Discovery & Travel Community Platform
 
-An interactive front-end prototype for discovering youth hostels and exploring travel resources.
+An AI-assisted, single-page front-end prototype that brings hostel discovery, travel guides, map-based browsing, and traveller community interfaces into one place.
 
-**Project context:** Digital Media Technology course project  
-**Development attribution:** Individually conceptualised and developed by the applicant  
-**Project status:** Front-end prototype; not a production booking service
+**Live demo:** https://xieyanqi.github.io/hostel-discovery-platform/  
+**Public repository:** https://github.com/xieyanqi/hostel-discovery-platform
 
-## Overview
+## Project at a glance
 
-The project originated from a travel-planning problem: hostel information, accommodation comparisons, and peer travel experiences were spread across multiple platforms. The aim was to explore how these resources could be brought together in one interface.
+- **Course context:** Digital Media Technology course group project
+- **My role:** Primary responsibility for product conceptualisation, requirements planning, and core front-end implementation
+- **Development approach:** A comprehensive initial prompt in Cursor generated the main website structure and code; I then reviewed the output and requested iterative modifications
+- **Project type:** Static front-end prototype using demonstration data
+- **Runtime:** No build step or application framework is required
 
-The prototype combines hostel discovery, travel guides, map-based browsing, and community-oriented interface concepts.
+The idea came from an independent trip to Xiamen. Finding and comparing hostels required searching across several travel and social platforms. Qing Traveler explores how accommodation information, travel guides, and traveller communities could be brought together in one browsing experience.
 
-## Features represented in the prototype
+## Main interfaces
 
-- **Hostel discovery:** dynamically rendered hostel cards with region, price-range, and category filters.
-- **Map-based browsing:** map views and location markers implemented with Leaflet and OpenStreetMap tiles.
-- **Hostel details:** modal interfaces for ratings, review examples, room types, and booking-channel examples.
-- **Travel guides:** guide cards, detailed itinerary content, and route-map interfaces.
-- **Community interfaces:** region and interest groups, organisation information, and activity-map views.
-- **Engagement UI:** membership presentation, a danmaku-style message area, and hostel-story cards.
+1. **Homepage and navigation** — destination carousel, section navigation, and entry points to the main content areas.
+2. **Hostel discovery** — nine sample hostel records, with client-side filters for region, price range, and hostel category. The project owner has tested the filtering interaction.
+3. **Hostel details** — a modal showing rating dimensions, review tags, and sample reviews.
+4. **Travel guides** — seven sample guide records, detail views, itinerary information, and map entry points.
+5. **Map-based browsing** — Leaflet map views using OpenStreetMap tiles and predefined location markers.
+6. **Traveller community** — regional and interest group cards, organisation examples, and activity-map views.
+7. **Travel stories** — image-led cards populated from a fixed demonstration dataset.
 
-These are prototype-level interfaces. The presence of a screen or interaction does not imply a production backend or a live third-party service.
+Visual evidence is organised in the accompanying screenshots folder. The screenshot files should be uploaded to the repository under screenshots/ to display them alongside the source and portfolio.
 
 ## Technology stack
 
-| Technology | Use in the project |
+| Technology | Role in the prototype |
 |---|---|
-| HTML5 | Page structure, forms, sections, and modal markup |
+| HTML5 | Single-page structure, sections, forms, and modal markup |
 | CSS3 | Layout, visual styling, responsive breakpoints, and animations |
-| JavaScript | Rendering, filtering, event handling, and interactive behaviour |
-| Bootstrap 5.1.3 | Responsive layout and modal components |
-| Leaflet 1.7.1 | Interactive map interfaces |
-| Swiper 8 | Homepage carousel |
+| Vanilla JavaScript | Data arrays, DOM rendering, filtering, event handling, and modal updates |
+| Bootstrap 5.1.3 | Grid/layout utilities, modal components, and UI styling |
+| Leaflet 1.7.1 | Interactive map containers and location markers |
+| OpenStreetMap | Map tile layer |
+| Swiper 8 | Homepage destination carousel |
 | Font Awesome 6 | Interface icons |
-| Cursor | AI-assisted code generation and iterative code revision |
+| Cursor | AI-assisted initial code generation and iterative code revision |
 
-External libraries are loaded from CDNs. Map tiles are requested from OpenStreetMap.
+Libraries are loaded through CDNs. The project does not use React, Vue, a server-side framework, or a bundling/build pipeline.
 
-## How it was developed
+## How the front end works
 
-The development process was prompt-driven and iterative:
+- index.html defines the single-page structure and loads CDN libraries, styles.css, and main.js.
+- main.js contains the active demonstration datasets: allHostels, travelGuides, communityData, and carouselData.
+- Rendering functions populate hostel, guide, and community cards from JavaScript arrays.
+- applyFilters() filters the hostel array by region, price, and type, then re-renders the cards.
+- Leaflet creates map instances and markers from predefined latitude/longitude values.
+- Bootstrap modals display hostel details, booking examples, guide details, and map views.
 
-1. Identify the user problem and define the intended website functions.
-2. Translate feature requirements and layout expectations into natural-language prompts in Cursor.
-3. Review generated pages in a browser, checking visual output and interaction behaviour.
-4. Report visible issues or error messages to Cursor and request revisions.
-5. Repeat the preview–evaluation–revision cycle.
+The data/hostels.js file is retained in the repository but is not imported by the current index.html; it is not the active data source for the hostel cards.
 
-The project developer's contribution centred on product conception, requirement description, prompt-based direction, browser-based evaluation, and iterative refinement. The code was generated and revised with AI assistance; this should not be represented as wholly hand-written code.
+## Development workflow
+
+The preserved initial brief is a comprehensive, one-shot website specification. It describes the product concept, visual direction, page structure, core modules, and expected interactions. According to my recollection, I submitted it to Cursor as the initial instruction; Cursor generated the main website structure and code, after which I reviewed the result and requested iterative modifications.
+
+The original Cursor chat history and intermediate versions were not retained. This workflow description is based on my recollection and the preserved initial product brief, rather than reconstructed chat logs.
+
+## Scope and limitations
+
+This repository contains a front-end prototype, not a production booking or community platform.
+
+- Hostel, review, guide, community, membership, and story content is demonstration or hard-coded data.
+- There is no server-side database, persistent account system, production authentication, live booking API, or payment provider.
+- Hostel room and booking-channel examples are hard-coded; channel URLs are placeholders.
+- The membership payment result is simulated in JavaScript.
+- showGroupQR() currently logs a placeholder QR-code path instead of displaying a QR code or joining a group.
+- The comments/guestbook code references commentForm, commentsList, and loadMoreComments, which are not present in the current HTML.
+- Some secondary inline controls call functions that are not defined in the supplied JavaScript.
+- The 500+ price filter value needs a parsing correction before it can reliably support future records priced above RMB 500.
+- The story load-more function returns a fixed sample dataset rather than fetching paginated content from a service.
+
+A JavaScript syntax check (node --check main.js) passes. A complete browser-based regression test has not yet been completed.
 
 ## Run locally
 
-No build step is required for the current static prototype.
+The project is static and has no build step.
 
-1. Download or clone this repository.
+1. Clone the repository.
 2. Open a terminal in the repository root.
-3. Start a local static server:
+3. Run: python -m http.server 8000
+4. Open http://localhost:8000 in a browser.
 
-   ```bash
-   python -m http.server 8000
-   ```
+An internet connection is needed for CDN libraries, remote images, and OpenStreetMap tiles.
 
-4. Visit `http://localhost:8000` in a browser.
+## Portfolio and project documentation
 
-Opening `index.html` directly may work for some parts, but a local server is recommended for consistent browser behaviour.
+- Technical Project Portfolio (Markdown): docs/technical-project-portfolio.md
+- Initial Product Requirements — English Summary: docs/initial-product-requirements-en.md
+- Source Code Review Notes: docs/source-code-review.md
 
-## Repository structure
-
-```text
-hostel-discovery-platform/
-├── index.html
-├── main.js
-├── styles.css
-├── data/
-│   └── hostels.js
-├── docs/
-│   ├── technical-project-portfolio.md
-│   └── technical-project-portfolio.pdf
-└── screenshots/
-    └── .gitkeep
-```
-
-## Data and implementation notes
-
-- The active hostel listing data is currently defined in `main.js`.
-- `data/hostels.js` is retained from the original project archive but is not currently imported by `index.html`; it is not the active data source for the displayed hostel cards.
-- Hostel reviews, room types, booking channels, stories, and several community elements use hard-coded or simulated example content.
-- The membership payment result is simulated in the front end. No real payment provider is connected.
-- No server-side database, persistent user account system, production authentication, or live booking API is included.
-
-## Known limitations identified during source review
-
-- The JavaScript includes a comments handler that refers to `commentForm`, `commentsList`, and `loadMoreComments`, which are not present in the supplied HTML.
-- Some inline HTML handlers refer to functions that are not defined in the supplied JavaScript, including `logout`, `retryPayment`, `contactSupport`, and `showMembershipDetails`.
-- `showToast` is called in some validation paths but is not defined in the supplied JavaScript.
-- The project has passed a JavaScript syntax check (`node --check main.js`), but a complete browser-based regression test has not yet been completed.
-
-These limitations are documented intentionally so the prototype is presented accurately. They are candidates for a later maintenance pass.
-
-## Public-release notes
-
-- The original “About Us” section contained names and personal descriptions of other students. This public-ready copy replaces that section with a project description to avoid publishing other people's personal details without permission.
-- Confirm that you have permission to publish the course project and review all external image URLs and assets before making the repository public.
-- No `LICENSE` file is included because the project's ownership and redistribution permissions have not yet been confirmed.
-
-## Portfolio
-
-See [`docs/technical-project-portfolio.md`](docs/technical-project-portfolio.md) for the English project portfolio draft. A PDF version is also included.
+The updated PDF portfolio and nine prepared screenshots are included in the handoff package and should replace/add to the corresponding files in this repository.
 
 ## Suggested repository description
 
-> An AI-assisted, prompt-driven front-end prototype for hostel discovery, travel guides, and traveller community interactions.
+AI-assisted front-end prototype for hostel discovery, travel guides, and traveller community interfaces.
