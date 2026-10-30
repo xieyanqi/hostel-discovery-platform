@@ -1,105 +1,193 @@
-# Hostel Discovery & Travel Community Platform
-## Technical Project Portfolio
+# Qing Traveler
+## Hostel Discovery & Travel Community Platform
+### Technical Project Portfolio
 
-**Project type:** Digital Media Technology course project — individually developed  
-**Role:** Product conception, requirement definition, prompt-driven AI-assisted development, browser-based evaluation  
-**Technology:** HTML5, CSS3, JavaScript, Bootstrap 5.1.3, Leaflet 1.7.1, Swiper 8, Font Awesome 6, Cursor
+**Project context:** Digital Media Technology course group project  
+**My contribution:** Primary responsibility for product conceptualisation, requirements planning, and core front-end implementation  
+**Development approach:** Comprehensive initial prompt in Cursor, followed by iterative refinement  
+**Technology:** HTML5, CSS3, Vanilla JavaScript, Bootstrap 5.1.3, Leaflet 1.7.1, OpenStreetMap, Swiper 8, Font Awesome 6, Cursor
+
+**Live demo:** https://xieyanqi.github.io/hostel-discovery-platform/  
+**Public repository:** https://github.com/xieyanqi/hostel-discovery-platform
 
 ---
 
-## 1. Project overview
+## 1. Project Overview
 
-The Hostel Discovery & Travel Community Platform is an interactive front-end prototype exploring how hostel information and travel resources could be brought together in a single browsing experience.
+Qing Traveler is a single-page front-end prototype designed to bring hostel discovery, travel guides, map-based browsing, traveller communities, and travel stories into one browsing experience.
 
-The project was motivated by an independent trip to Xiamen. During peak travel season, comparing hostel options required searching across several platforms. Accommodation details and traveller experiences were fragmented, making it difficult to compare options efficiently. The project translated this observation into a product concept: a unified interface for discovering hostels, browsing travel guides, and exploring traveller communities.
+The project originated from an independent trip to Xiamen. During the peak travel season, I searched across Mafengwo, Qunar, and Xiaohongshu to find a hostel that offered a reasonable price and a good experience. Accommodation information and traveller recommendations were scattered across different platforms. I began to consider whether these resources could be organised in one place, reducing the repeated searching required of independent travellers.
 
-## 2. Product scope and key interfaces
+I developed this idea into a Digital Media Technology course group project. I took primary responsibility for the product concept and core front-end implementation.
 
-The prototype includes the following interface areas:
+## 2. Initial Requirements and Product Design
 
-- **Hostel discovery:** hostel cards rendered dynamically from JavaScript data, with filters for region, price range, and hostel category.
-- **Map-based browsing:** Leaflet map interfaces with location markers and OpenStreetMap tiles.
-- **Hostel details:** modal layouts for rating summaries, review examples, room-type examples, and booking-channel examples.
-- **Travel guides:** guide cards, itinerary details, and route-map interfaces.
-- **Community:** region and interest groups, organisation information, and activity-map interfaces.
-- **Engagement components:** membership presentation, a danmaku-style message area, and hostel-story cards.
+Before development, I prepared a comprehensive website specification and submitted it to Cursor as the initial instruction. The brief described the product concept, visual direction, page structure, major modules, and expected interactions.
 
-The current implementation is a front-end prototype. Some content is hard-coded or simulated, and several interface concepts are not connected to live services.
+The initial design proposed:
+- a homepage with destination imagery and navigation;
+- hostel discovery with region, price, and category filters;
+- hostel details and review presentation;
+- travel guides with itinerary, transport, accommodation, and food information;
+- map views for hostel and itinerary locations;
+- regional and interest-based traveller groups;
+- travel stories and supporting membership/promotional concepts.
 
-## 3. Technical implementation
+The original brief also proposed capabilities such as real login, membership points, personalised recommendations, booking, and group joining. These should be understood as product ideas, not as completed production features.
 
-| Layer | Implementation |
+## 3. Product Structure and Implemented Interfaces
+
+### 3.1 Homepage and Navigation
+
+The homepage includes a destination carousel, navigation links to the main sections, and entry points to membership and login/register interface concepts.
+
+### 3.2 Hostel Discovery
+
+The hostel listing is generated from nine demonstration records stored in main.js. Users can filter cards by geographical region, price range, and hostel category. The project owner has tested the filtering interaction and confirmed that the displayed listing changes according to selected filters.
+
+The detail modal displays an overall rating, rating dimensions, review tags, and sample reviews. These are hard-coded examples rather than verified user-generated records.
+
+### 3.3 Travel Guides and Itinerary Details
+
+Seven sample guide records are defined in main.js. Guide cards show the title, author, date, summary, and engagement counts. Selecting a guide opens a detailed view containing an overview, itinerary schedule, transport notes, accommodation examples, and food recommendations.
+
+### 3.4 Map-based Browsing
+
+Leaflet is used to create map views with OpenStreetMap tiles and markers positioned using predefined latitude/longitude values. The maps visualise sample hostel, itinerary, and community-event locations. They do not provide route optimisation, turn-by-turn navigation, or live location tracking.
+
+### 3.5 Traveller Community
+
+The community interface presents three regional-group examples, two interest-group examples, and two organisation examples. Activity-map views show sample event locations and dates.
+
+The group-joining control is not implemented as a working join service. In the current source, showGroupQR() only logs a placeholder QR-code path to the browser console.
+
+### 3.6 Travel Stories
+
+Story cards display an image, category, title, excerpt, author, and date. The current story content is returned by a simulated asynchronous JavaScript function using a fixed sample dataset. There is no connected story API, database, or persistent publishing system.
+
+## 4. Technical Implementation
+
+The project follows a lightweight static front-end structure.
+
+| Component | Implementation |
 |---|---|
-| Structure | HTML5 sections, navigation, forms, and Bootstrap modal markup |
-| Presentation | CSS3 styling, responsive breakpoints, and interface animations |
-| Interaction | JavaScript event listeners, dynamic DOM rendering, filtering, and modal updates |
-| UI framework | Bootstrap 5.1.3 |
+| Page structure | HTML5 |
+| Styling and responsive layout | CSS3 |
+| Client-side logic | Vanilla JavaScript |
+| UI components | Bootstrap 5.1.3 |
 | Maps | Leaflet 1.7.1 with OpenStreetMap tiles |
 | Carousel | Swiper 8 |
 | Icons | Font Awesome 6 |
-| Development tool | Cursor for AI-assisted code generation and revision |
+| AI-assisted development environment | Cursor |
 
-The active hostel card dataset is declared in `main.js`. The archive also contains `data/hostels.js`, but this file is not currently imported by `index.html`; it is retained as part of the original source package.
+The libraries are loaded through CDNs. The project does not use React, Vue, a server-side framework, or a bundling/build pipeline.
 
-## 4. Development workflow: prompt-driven iteration
+### Client-side data and rendering
 
-The project was developed through a prompt-driven workflow in Cursor rather than by writing all code manually from scratch.
+The active data structures are declared in main.js:
+- allHostels: nine hostel demonstration records;
+- travelGuides: seven travel guide records;
+- communityData: regional groups, interest groups, and organisation examples;
+- carouselData: destination and map marker examples.
 
-1. **Concept and requirements:** define the problem, intended audience, page sections, and desired interactions.
-2. **Prompting:** describe page layouts and functional requirements in natural language to Cursor.
-3. **Generation:** review the generated HTML, CSS, and JavaScript files.
-4. **Browser evaluation:** inspect visual output and manually try interactive elements such as filters, maps, and modal interfaces.
-5. **Issue reporting and revision:** provide Cursor with observed problems or error messages and request targeted changes.
-6. **Iteration:** repeat the preview, evaluation, and revision cycle.
+The main rendering and interaction flow is:
+1. index.html loads the page structure and external libraries.
+2. main.js initialises the Swiper carousel, Bootstrap modal instances, filters, guide cards, and community cards.
+3. Rendering functions populate the page from JavaScript data arrays.
+4. applyFilters() applies the selected region, price, and type conditions to allHostels, then calls renderHostels().
+5. Leaflet creates map layers and markers from predefined coordinates.
+6. Bootstrap modals present hostel details, booking examples, guide details, and maps.
 
-This process provided practical experience in translating product requirements into interface behaviour and evaluating AI-generated implementation.
+The repository also contains data/hostels.js, but the current HTML does not import it. It is retained from the source package and is not the active hostel dataset.
 
-## 5. Individual contribution
+## 5. AI-assisted Development Workflow
 
-The project was independently conceptualised and developed by the applicant in the context of the Digital Media Technology course. The contribution included:
+A distinctive part of this project was using Cursor as an AI-assisted coding environment.
 
-- identifying the travel-information problem and proposing the platform concept;
-- defining the main information architecture and feature requirements;
-- translating requirements into natural-language prompts for Cursor;
-- reviewing generated code and browser output;
-- testing visible interactions and using errors or unexpected behaviour to guide further revisions.
+I first prepared a comprehensive natural-language website specification and submitted it to Cursor in one initial prompt. Instead of requesting each page separately, the instruction covered the overall product concept, visual style, information architecture, core modules, and expected interactions.
 
-The use of Cursor should be described transparently as AI-assisted code generation and iterative revision, not as wholly hand-written implementation.
+Cursor generated the main website structure and code from this initial instruction. I then reviewed the generated website and continued to request modifications during development.
 
-## 6. Technical limitations and critical reflection
+The workflow can be summarised as:
+1. **Product conceptualisation:** identify the fragmented travel-information problem and define the platform objective.
+2. **Comprehensive requirement specification:** describe the page structure, visual direction, content modules, and expected interactions in one initial brief.
+3. **Initial AI generation:** use Cursor to generate the main website pages and code.
+4. **Browser-based evaluation:** inspect the generated website and compare the visible result with the intended design.
+5. **Iterative refinement:** provide further instructions to Cursor to modify code and improve the implementation.
+6. **Testing and publication:** test selected interactions, publish the source repository, and deploy the static website through GitHub Pages.
 
-The source review identified several limitations:
+The original Cursor chat history and intermediate development versions were not retained. This description reflects my recollection of the workflow and the preserved initial product specification, rather than reconstructed chat logs.
 
-- The prototype has no server-side database, production authentication, persistent user accounts, or live booking API.
-- Review, room, booking-channel, and story content includes hard-coded or simulated examples.
-- The membership payment outcome is simulated in JavaScript rather than processed by a payment provider.
-- `data/hostels.js` is not currently loaded by the page; the active hostel list is separately declared in `main.js`.
-- The comments handler refers to HTML elements that are absent from the supplied page, and some inline handlers refer to functions that are not defined.
-- A JavaScript syntax check passed, but full browser-based regression testing remains to be completed.
+## 6. Individual Contribution
 
-The most important learning was the distinction between describing desired behaviour and understanding how that behaviour is implemented. Prompt-driven development made it possible to turn a product idea into an interactive prototype, while also exposing gaps in the developer's understanding of program logic, data organisation, and software architecture.
+Although the project was completed in a course group-project setting, I took primary responsibility for the substantive product concept and core front-end development.
 
-## 7. Future development directions
+My contribution included:
+- identifying the original user problem through personal travel experience;
+- defining the product direction and major functional requirements;
+- preparing the comprehensive initial website specification;
+- using Cursor to generate the main website structure and code;
+- evaluating generated pages and directing subsequent code modifications;
+- reviewing the source structure and testing the hostel filtering interaction;
+- publishing the project through GitHub and GitHub Pages.
 
-Potential next steps include:
+The project was AI-assisted: the main code was generated and modified with Cursor. My role should therefore be described as product conceptualisation, requirement definition, AI-assisted development direction, evaluation, and refinement—not as independently hand-writing every line of code.
 
-1. consolidate hostel data into a single structured source and connect it to the rendering logic;
-2. repair unresolved event handlers and validate all visible interactions;
-3. separate interface components and data modules for easier maintenance;
-4. introduce a backend and database if persistent accounts, saved items, or genuine bookings are required;
-5. connect verified accommodation data and booking providers rather than relying on illustrative examples;
-6. add automated tests and document browser compatibility.
+## 7. Functional Evaluation and Current Limitations
 
-These are proposed future improvements, not features claimed to be complete.
+| Area | Current status |
+|---|---|
+| Homepage and navigation | Interface implemented |
+| Hostel listing | Nine demonstration records rendered |
+| Region, price, and type filters | Client-side filtering implemented; owner-confirmed tested |
+| Hostel detail modal | Interface implemented with sample ratings and reviews |
+| Travel guide cards and detail modal | Implemented with demonstration content |
+| Itinerary map | Leaflet map and predefined markers implemented |
+| Community groups | Group cards and activity-map interface implemented |
+| Join-group workflow | Placeholder only; not implemented as a working join service |
+| Travel stories | Cards populated from a fixed mock dataset |
+| Login and registration | Interface concepts only; no production authentication |
+| Booking and payment | Demonstration interfaces only; no live booking or payment service |
+| Persistent data | No server-side database |
 
-## 8. Evidence
+Additional source-review findings:
+- data/hostels.js is not imported by the current page.
+- The 500+ price filter value needs a parsing correction.
+- The guestbook comments initialisation references HTML elements that are absent from the current page.
+- Some secondary inline handlers call functions that are not defined.
+- The membership payment result is simulated using a random outcome.
+- The same fixed story dataset is returned by the load-more function.
 
-- **Source repository:** to be added after GitHub publication.
-- **Live demo:** to be added after deployment and browser verification.
-- **Screenshots:** to be added after capturing the actual running website.
+A JavaScript syntax check (node --check main.js) passes. Full browser-based regression testing remains to be completed.
+
+## 8. Reflection and Future Development
+
+The project allowed me to translate a product idea into an interactive website prototype using AI-assisted development. It also helped me recognise the difference between describing desired functionality and understanding how that functionality is implemented.
+
+I could define the information users should see, describe how the filters and maps should behave, and evaluate whether the generated interface matched my expectations. However, the process also exposed gaps in my understanding of the underlying programming logic, data organisation, and software architecture.
+
+This became an important motivation for pursuing formal Computing education. I want to move beyond directing AI tools to produce working interfaces and develop the ability to understand, design, implement, test, and maintain software systems more independently.
+
+Potential future improvements include:
+1. consolidating the demonstration data into a clear, modular data layer;
+2. correcting incomplete event handlers and testing all visible controls;
+3. improving the separation of UI rendering, application logic, and data;
+4. learning how to design and connect backend services and databases;
+5. implementing genuine authentication and persistent user interactions;
+6. adding automated tests and more systematic debugging practices.
+
+These are future learning and development directions, not features claimed to be complete.
+
+## 9. Project Access
+
+- **Live demo:** https://xieyanqi.github.io/hostel-discovery-platform/
+- **Public GitHub repository:** https://github.com/xieyanqi/hostel-discovery-platform
 
 ---
 
-### CV-ready summary
+### CV-ready project description
 
-Independently conceptualised and developed an interactive hostel discovery and travel community prototype for a Digital Media Technology course. Translated product requirements into natural-language prompts in Cursor, iteratively generating and refining HTML/CSS/JavaScript interfaces. Evaluated visual output and tested browser interactions, using observed issues and error messages to guide subsequent revisions.
+**Qing Traveler — Hostel Discovery & Travel Community Platform**  
+*Digital Media Technology Course Group Project | Primary Product & Front-end Contributor*
+
+Took primary responsibility for product conceptualisation and core front-end development of an AI-assisted travel platform prototype integrating hostel discovery, travel guides, map-based browsing, and traveller community interfaces. Prepared a comprehensive initial product specification, used Cursor to generate the main website structure and code, and iteratively refined the implementation through browser-based evaluation. Implemented client-side hostel filtering and Leaflet-based map views; published the prototype through GitHub Pages.
