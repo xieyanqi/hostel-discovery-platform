@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青旅行者</title>
+
+    <!-- CSS 文件 -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-compass"></i> 青旅行者
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hostels">特色青旅</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#guides">驴友攻略</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#community">青旅社区</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hostel-stories">青旅故事</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="about-link">
+                        <a href="#about" class="nav-link special-link">
+                            <i class="fas fa-heart"></i> 猜猜是哪几位姐开发了这个网站呀
+                        </a>
+                    </div>
+                    <div class="auth-buttons d-flex align-items-center gap-2">
+                        <button class="btn btn-membership" data-bs-toggle="modal" data-bs-target="#membershipModal">
+                            <i class="fas fa-crown"></i> 开通会员
+                        </button>
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            登录/注册
+                        </button>
+                    </div>
+                    <!-- 登录后显示的用户菜单 -->
+                    <div class="user-menu d-none">
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <img src="default-avatar.jpg" alt="用户头像" class="user-avatar">
+                                <span class="user-name">用户名</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> 个人中心</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-heart"></i> 我的收藏</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-list"></i> 我的订单</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> 设置</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 退出登录</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 轮播图部分 -->
+    <section class="hero-section">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <!-- 大理古城 -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <img src="https://images.unsplash.com/photo-1496275068113-fff8c90750d1" alt="大理古城">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-text">
+                            <h2>在大理，与风花雪月同眠</h2>
+                            <p>百年老宅中感受白族建筑之美，尽享苍山洱海的诗意时光</p>
+                            <button class="btn btn-outline-light map-btn" onclick="showMap('dali')">
+                                <i class="fas fa-map-marker-alt"></i> 查看周边青旅
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 丽江古城 -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <img src="https://images.unsplash.com/photo-1528164344705-47542687000d" alt="丽江古城">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-text">
+                            <h2>丽江古城，纳西风情</h2>
+                            <p>玉龙雪山下的温馨小院，聆听古城的千年传说</p>
+                            <button class="btn btn-outline-light map-btn" onclick="showMap('lijiang')">
+                                <i class="fas fa-map-marker-alt"></i> 查看周边青旅
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 杭州西湖 -->
+                <div class="swiper-slide">
+                    <div class="slide-content">
+                        <img src="https://images.unsplash.com/photo-1470004914212-05527e49370b" alt="杭州西湖">
+                        <div class="slide-overlay"></div>
+                        <div class="slide-text">
+                            <h2>杭州西湖，诗意栖居</h2>
+                            <p>临湖而居，与断桥残雪、平湖秋月为邻</p>
+                            <button class="btn btn-outline-light map-btn" onclick="showMap('hangzhou')">
+                                <i class="fas fa-map-marker-alt"></i> 查看周边青旅
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <!-- 特色青旅板块 -->
+    <section id="hostels" class="featured-hostels">
+        <div class="container">
+            <!-- 标题部分 -->
+            <div class="section-header text-center">
+                <h2 class="section-title">特色青旅</h2>
+                <p class="section-subtitle">精选全国各地优质青旅，让你的旅途更舒心</p>
+            </div>
+
+            <!-- 筛选器 -->
+            <div class="filters-wrapper mb-4">
+                <div class="row g-3">
+                    <!-- 地区筛选 -->
+                    <div class="col-md-3">
+                        <select class="form-select" id="regionFilter">
+                            <option value="">全部地区</option>
+                            <option value="beijing">北京市</option>
+                            <option value="shanghai">上海市</option>
+                            <option value="guangdong">广东省</option>
+                            <option value="sichuan">四川省</option>
+                            <option value="yunnan">云南省</option>
+                            <option value="zhejiang">浙江省</option>
+                            <option value="fujian">福建省</option>
+                            <option value="guangxi">广西壮族自治区</option>
+                            <option value="xizang">西藏自治区</option>
+                        </select>
+                    </div>
+                    <!-- 价格区间 -->
+                    <div class="col-md-3">
+                        <select class="form-select" id="priceFilter">
+                            <option value="">全部价格</option>
+                            <option value="0-100">￥100以下</option>
+                            <option value="100-200">￥100-200</option>
+                            <option value="200-300">￥200-300</option>
+                            <option value="300-500">￥300-500</option>
+                            <option value="500+">￥500以上</option>
+                        </select>
+                    </div>
+                    <!-- 青旅类型 -->
+                    <div class="col-md-3">
+                        <select class="form-select" id="typeFilter">
+                            <option value="">全部类型</option>
+                            <option value="historic">古城特色</option>
+                            <option value="nature">自然风光</option>
+                            <option value="modern">现代时尚</option>
+                            <option value="cultural">文化艺术</option>
+                            <option value="resort">度假休闲</option>
+                        </select>
+                    </div>
+                    <!-- 清除筛选 -->
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-secondary w-100" id="clearFilters">
+                            <i class="fas fa-sync-alt"></i> 重置筛选
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 青旅卡片展示区 -->
+            <div class="row g-4" id="hostelCards">
+                <!-- 卡片由 JavaScript 动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 地图模态框 -->
+    <div class="modal fade" id="mapModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">周边青旅分布</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="map" style="height: 400px;"></div>
+                    <div class="mt-3" id="hostel-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 青旅详情模态框 -->
+    <div class="modal fade" id="hostelDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">青旅详情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="hostel-detail-content">
+                        <!-- 评分概览 -->
+                        <div class="rating-overview mb-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-3 text-center">
+                                    <div class="overall-rating">
+                                        <h2 class="rating-number mb-0"></h2>
+                                        <div class="stars mb-2"></div>
+                                        <p class="text-muted">总体评分</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="rating-bars"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 评价标签 -->
+                        <div class="review-tags mb-4"></div>
+
+                        <!-- 住客评价列表 -->
+                        <div class="reviews-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 预订模态框 -->
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">预订房间</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 日期选择 -->
+                    <div class="booking-dates mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">入住日期</label>
+                                <input type="date" class="form-control" id="checkInDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">退房日期</label>
+                                <input type="date" class="form-control" id="checkOutDate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 房型列表 -->
+                    <div class="room-types"></div>
+
+                    <!-- 预订渠道 -->
+                    <div class="booking-channels mt-4">
+                        <h6 class="mb-3">预订渠道</h6>
+                        <div class="channel-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 驴友攻略板块 -->
+    <section id="guides" class="travel-guides">
+        <div class="container">
+            <!-- 标题部分 -->
+            <div class="section-header d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="section-title">驴友攻略</h2>
+                    <p class="section-subtitle">发现最地道的旅行体验</p>
+                </div>
+                <a href="javascript:void(0)" class="btn btn-link text-primary" onclick="showMembershipPrompt()">
+                    查看更多 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- 攻略列表 -->
+            <div class="guides-list">
+                <!-- 攻略由 JavaScript 动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 攻略详情模态框 -->
+    <div class="modal fade" id="guideDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">攻略详情</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="guide-detail-content">
+                        <!-- 内容由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 行程地图模态框 -->
+    <div class="modal fade" id="routeMapModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">行程地图</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="routeMap" style="height: 500px;"></div>
+                    <div class="route-info mt-3">
+                        <!-- 路线信息由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 青旅社区板块 -->
+    <section id="community" class="hostel-community">
+        <div class="container">
+            <!-- 标题部分 -->
+            <div class="section-header mb-4">
+                <h2 class="section-title">青旅社区</h2>
+                <p class="section-subtitle">结识志同道合的旅行伙伴</p>
+            </div>
+
+            <!-- 群组分类导航 -->
+            <ul class="nav nav-pills mb-4" id="communityTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#regionGroups">
+                        <i class="fas fa-map-marked-alt"></i> 地区群组
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#interestGroups">
+                        <i class="fas fa-heart"></i> 兴趣群组
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#organizations">
+                        <i class="fas fa-building"></i> 官方组织
+                    </button>
+                </li>
+            </ul>
+
+            <!-- 群组内容 -->
+            <div class="tab-content" id="communityContent">
+                <!-- 地区群组 -->
+                <div class="tab-pane fade show active" id="regionGroups">
+                    <div class="row g-4" id="regionGroupsList">
+                        <!-- 由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 兴趣群组 -->
+                <div class="tab-pane fade" id="interestGroups">
+                    <div class="row g-4" id="interestGroupsList">
+                        <!-- 由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 官方组织 -->
+                <div class="tab-pane fade" id="organizations">
+                    <div class="row g-4" id="organizationsList">
+                        <!-- 由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活动地图模态框 -->
+    <div class="modal fade" id="activityMapModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">活动地图</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="activityMap" style="height: 400px;"></div>
+                    <div class="activity-info mt-3">
+                        <!-- 活动信息由 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About the project: public-release version with personal names removed -->
+    <section id="about" class="about-us">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2 class="section-title">关于项目</h2>
+                <p class="section-subtitle">一个围绕青年旅舍发现与旅行者交流设计的交互式网站原型</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="about-project-copy">
+                        <p>本项目尝试将青旅信息、旅行攻略与旅行者社区整合到一个统一的浏览体验中。</p>
+                        <p>项目在《数字媒体技术》课程背景下完成，由项目开发者独立构思并实现前端原型。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 登录模态框 -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <ul class="nav nav-tabs w-100" role="tablist">
+                        <li class="nav-item flex-fill text-center">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#loginTab">登录</a>
+                        </li>
+                        <li class="nav-item flex-fill text-center">
+                            <a class="nav-link" data-bs-toggle="tab" href="#registerTab">注册</a>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="tab-content">
+                        <!-- 登录表单 -->
+                        <div class="tab-pane fade show active" id="loginTab">
+                            <form id="loginForm" class="auth-form">
+                                <div class="mb-3">
+                                    <label class="form-label">用户名/邮箱</label>
+                                    <input type="text" class="form-control" required>
+                                    <div class="form-text">请输入您注册时使用的用户名或邮箱</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">密码</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" required>
+                                        <button class="btn btn-outline-secondary toggle-password" type="button">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text">请输入您的登录密码</div>
+                                </div>
+                                <div class="mb-3 text-end">
+                                    <a href="#" class="text-decoration-none">忘记密码？</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">登录</button>
+                            </form>
+                        </div>
+                        
+                        <!-- 注册表单 -->
+                        <div class="tab-pane fade" id="registerTab">
+                            <form id="registerForm" class="auth-form">
+                                <div class="mb-3">
+                                    <label class="form-label">用户名</label>
+                                    <input type="text" class="form-control" required>
+                                    <div class="form-text">6-16个字符，可包含字母、数字和下划线</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">邮箱</label>
+                                    <div class="input-group">
+                                        <input type="email" class="form-control" required>
+                                        <button class="btn btn-outline-primary" type="button">发送验证码</button>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">验证码</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">密码</label>
+                                    <input type="password" class="form-control" required>
+                                    <div class="form-text">8-20个字符，必须包含字母、数字和特殊字符</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">确认密码</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">注册</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 会员开通模态框 -->
+    <div class="modal fade" id="membershipModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h4 class="modal-title w-100 text-center">
+                        <i class="fas fa-crown text-warning"></i> 开通会员，享受更多特权
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- 会员特权展示 -->
+                    <div class="privileges-section mb-4">
+                        <h5 class="section-title mb-3">会员专享特权</h5>
+                        <div class="row g-3">
+                            <div class="col-md-3 col-6">
+                                <div class="privilege-card" data-bs-toggle="tooltip" title="预订青旅享受9折优惠：会员在预订青旅时，可享受房间价格的9折优惠，优惠金额将在结算时自动扣除">
+                                    <i class="fas fa-percent"></i>
+                                    <h6>订房优惠</h6>
+                                    <p>预订青旅9折</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="privilege-card" data-bs-toggle="tooltip" title="可免费升级到更好的房间（视房源情况而定）">
+                                    <i class="fas fa-hotel"></i>
+                                    <h6>免费升级</h6>
+                                    <p>房型升级优先</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="privilege-card" data-bs-toggle="tooltip" title="优先参与青旅组织的各类特色活动">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <h6>活动特权</h6>
+                                    <p>优先参加活动</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6">
+                                <div class="privilege-card" data-bs-toggle="tooltip" title="享受专属客服一对一服务">
+                                    <i class="fas fa-headset"></i>
+                                    <h6>贴心服务</h6>
+                                    <p>专属客服服务</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 会员套餐选择 -->
+                    <div class="plans-section mb-4">
+                        <h5 class="section-title mb-3">选择会员套餐</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="plan-card" onclick="selectPlan('month')">
+                                    <div class="plan-header">
+                                        <h6>月卡会员</h6>
+                                        <div class="price">
+                                            <span class="amount">¥29</span>
+                                            <span class="period">/月</span>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <p>短期体验会员特权</p>
+                                        <p>适合偶尔出行的用户</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="plan-card recommended" onclick="selectPlan('quarter')">
+                                    <div class="plan-header">
+                                        <h6>季卡会员</h6>
+                                        <div class="price">
+                                            <span class="amount">¥79</span>
+                                            <span class="period">/季</span>
+                                        </div>
+                                        <span class="badge bg-warning">推荐</span>
+                                    </div>
+                                    <div class="plan-body">
+                                        <p>性价比之选</p>
+                                        <p>适合经常短途旅行的用户</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="plan-card" onclick="selectPlan('year')">
+                                    <div class="plan-header">
+                                        <h6>年卡会员</h6>
+                                        <div class="price">
+                                            <span class="amount">¥269</span>
+                                            <span class="period">/年</span>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body">
+                                        <p>长期享受会员特权</p>
+                                        <p>适合热爱旅行的资深驴友</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 支付方式选择 -->
+                    <div class="payment-section">
+                        <h5 class="section-title mb-3">选择支付方式</h5>
+                        <div class="payment-methods mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="wechat" checked>
+                                <label class="form-check-label" for="wechat">
+                                    <i class="fab fa-weixin text-success"></i> 微信支付
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="alipay">
+                                <label class="form-check-label" for="alipay">
+                                    <i class="fab fa-alipay text-primary"></i> 支付宝
+                                </label>
+                            </div>
+                        </div>
+                        <div class="payment-amount mb-3">
+                            <h6>支付金额</h6>
+                            <div class="amount">¥<span id="paymentAmount">79</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer flex-column border-top">
+                    <button type="button" class="btn btn-primary btn-lg w-100" onclick="processPayment()">
+                        立即开通
+                    </button>
+                    <div class="mt-2 text-center">
+                        <small class="text-muted">
+                            开通即表示同意
+                            <a href="#" class="text-decoration-none">《会员服务协议》</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 支付结果提示模态框 -->
+    <div class="modal fade" id="paymentResultModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <div id="paymentSuccess" class="d-none">
+                        <i class="fas fa-check-circle text-success display-1 mb-3"></i>
+                        <h4>支付成功</h4>
+                        <p>恭喜您成功开通会员！</p>
+                        <button class="btn btn-primary" onclick="location.reload()">立即体验</button>
+                    </div>
+                    <div id="paymentError" class="d-none">
+                        <i class="fas fa-times-circle text-danger display-1 mb-3"></i>
+                        <h4>支付失败</h4>
+                        <p>请检查网络连接或更换支付方式重试</p>
+                        <button class="btn btn-primary" onclick="retryPayment()">重新支付</button>
+                        <button class="btn btn-outline-primary" onclick="contactSupport()">联系客服</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹幕留言板模块 -->
+    <section id="danmaku-guestbook" class="danmaku-section">
+        <div class="container">
+            <div class="section-header text-center mb-4">
+                <h2 class="section-title">弹幕留言板</h2>
+                <p class="section-subtitle">来一起互动吧！</p>
+            </div>
+
+            <!-- 弹幕展示区域 -->
+            <div class="danmaku-container" id="danmakuContainer">
+                <!-- 弹幕将在这里动态生成 -->
+            </div>
+
+            <!-- 留言表单 -->
+            <div class="comment-form">
+                <form id="danmakuForm">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="nickname" placeholder="你的昵称" required>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <textarea class="form-control" id="commentContent" rows="1" placeholder="发条弹幕吧..." required></textarea>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-paper-plane"></i> 发送
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 青旅故事栏目 -->
+    <section id="hostel-stories" class="stories-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">青旅故事</h2>
+                <p class="section-subtitle">聆听青旅义工与驴友的精彩旅程</p>
+            </div>
+
+            <!-- 故事列表 -->
+            <div class="stories-grid" id="storiesGrid">
+                <!-- 故事卡片将通过 JavaScript 动态生成 -->
+            </div>
+
+            <!-- 加载更多按钮 -->
+            <div class="text-center mt-5">
+                <button id="loadMoreStories" class="btn btn-outline-primary">
+                    加载更多故事 <i class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript 文件 -->
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+
+    <!-- 添加会员提示 Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="membershipToast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-crown text-warning me-2"></i>
+                <strong class="me-auto">会员特权</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                请开通会员，了解更多驴友共享旅游攻略
+                <div class="mt-2">
+                    <button class="btn btn-primary btn-sm" onclick="showMembershipDetails()">
+                        了解会员权益
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 滚动到顶部按钮 -->
+    <button id="scrollToTop" class="scroll-to-top" title="返回顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+</html>
